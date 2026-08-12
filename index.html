@@ -14,13 +14,299 @@
   .no-scrollbar { -ms-overflow-style: none; scrollbar-width: none; }
   html { scroll-behavior: smooth; }
   body { background: #09090b; }
+
+  /* ============ SPACE BACKGROUND ============ */
+  #space-bg {
+    position: fixed;
+    top: 0;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 100%;
+    max-width: 480px;
+    height: 100vh;
+    overflow: hidden;
+    z-index: 0;
+    pointer-events: none;
+    background:
+      radial-gradient(ellipse at 20% 10%, rgba(139,92,246,0.16), transparent 55%),
+      radial-gradient(ellipse at 85% 30%, rgba(217,70,239,0.12), transparent 50%),
+      radial-gradient(ellipse at 50% 100%, rgba(76,29,149,0.20), transparent 60%),
+      linear-gradient(180deg, #0b0a17 0%, #0a0912 45%, #09090b 100%);
+  }
+
+  /* wrapper layer: handles scroll-parallax movement via JS (transform: translateY) */
+  .parallax {
+    position: absolute;
+    will-change: transform;
+  }
+  .pos-nebula-1 { top: -8%; left: -15%; width: 60%; height: 30%; }
+  .pos-nebula-2 { bottom: 10%; right: -20%; width: 55%; height: 28%; }
+  .pos-stars { inset: 0; width: 100%; height: 100%; }
+  .pos-mars { top: 12%; left: 8%; }
+  .pos-blue { top: 46%; right: 6%; }
+  .pos-moon { top: 6%; right: 14%; }
+  .pos-saturn { bottom: 8%; left: 10%; }
+  .pos-purple { top: 28%; right: 20%; }
+  .pos-asteroid { top: 62%; left: 18%; }
+  .pos-comet { top: 20%; left: -10%; }
+
+  #dark-overlay {
+    position: absolute;
+    inset: 0;
+    background: #000;
+    opacity: 0;
+    z-index: 2;
+    pointer-events: none;
+  }
+
+  .nebula {
+    position: absolute;
+    inset: 0;
+    border-radius: 50%;
+    filter: blur(60px);
+    opacity: 0.55;
+    animation: nebula-pulse 10s ease-in-out infinite;
+  }
+  .nebula-1 { background: radial-gradient(circle, rgba(139,92,246,0.55), transparent 70%); }
+  .nebula-2 { background: radial-gradient(circle, rgba(217,70,239,0.4), transparent 70%); animation-delay: 3s; }
+
+  .shooting-star {
+    position: absolute;
+    width: 90px;
+    height: 2px;
+    background: linear-gradient(90deg, rgba(255,255,255,0) 0%, rgba(255,255,255,0.85) 75%, #fff 100%);
+    border-radius: 2px;
+    filter: drop-shadow(0 0 6px rgba(255,255,255,0.85));
+    opacity: 0;
+    animation: shoot 1.3s linear forwards;
+  }
+  @keyframes shoot {
+    0% { transform: translate(0, 0) rotate(35deg); opacity: 0; }
+    8% { opacity: 1; }
+    75% { opacity: 1; }
+    100% { transform: translate(260px, 180px) rotate(35deg); opacity: 0; }
+  }
+
+  @keyframes nebula-pulse {
+    0%, 100% { opacity: 0.35; transform: scale(1); }
+    50% { opacity: 0.6; transform: scale(1.12); }
+  }
+
+  .star {
+    position: absolute;
+    background: #fff;
+    border-radius: 50%;
+    animation: twinkle ease-in-out infinite;
+  }
+  @keyframes twinkle {
+    0%, 100% { opacity: 0.15; transform: scale(0.8); }
+    50% { opacity: 1; transform: scale(1.15); }
+  }
+
+  @keyframes float {
+    0%, 100% { transform: translateY(0px); }
+    50% { transform: translateY(-16px); }
+  }
+  @keyframes float-slow {
+    0%, 100% { transform: translateY(0px) rotate(0deg); }
+    50% { transform: translateY(-10px) rotate(4deg); }
+  }
+  @keyframes spin-slow {
+    from { transform: rotate(0deg); }
+    to { transform: rotate(360deg); }
+  }
+
+  .planet {
+    position: relative;
+    border-radius: 50%;
+    animation: float 7s ease-in-out infinite;
+  }
+  .planet-mars {
+    width: 46px;
+    height: 46px;
+    background: radial-gradient(circle at 32% 30%, #ff9d6e, #d9542a 55%, #7a2a10 100%);
+    box-shadow: 0 0 22px 6px rgba(255,138,90,0.45), 0 0 50px 14px rgba(255,90,40,0.2);
+  }
+  .planet-blue {
+    width: 30px;
+    height: 30px;
+    background: radial-gradient(circle at 35% 30%, #93c5fd, #3b82f6 55%, #1e3a8a 100%);
+    box-shadow: 0 0 18px 5px rgba(96,165,250,0.5), 0 0 40px 12px rgba(59,130,246,0.2);
+    animation-delay: 1.5s;
+  }
+
+  .moon {
+    position: relative;
+    width: 64px;
+    height: 64px;
+    border-radius: 50%;
+    background: radial-gradient(circle at 35% 30%, #fdfdf9, #e4e2da 55%, #b8b6ab 100%);
+    box-shadow: 0 0 24px 8px rgba(255,255,255,0.35), 0 0 60px 18px rgba(224,222,255,0.15);
+    animation: float 9s ease-in-out infinite;
+    animation-delay: 0.5s;
+  }
+  .crater {
+    position: absolute;
+    border-radius: 50%;
+    background: rgba(150,148,140,0.45);
+  }
+  .crater.c1 { width: 12px; height: 12px; top: 14px; left: 16px; }
+  .crater.c2 { width: 7px; height: 7px; top: 34px; left: 34px; }
+  .crater.c3 { width: 5px; height: 5px; top: 20px; left: 40px; }
+
+  .saturn-wrap {
+    position: relative;
+    width: 90px;
+    height: 90px;
+    animation: float-slow 11s ease-in-out infinite;
+  }
+  .saturn-ring {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    width: 96px;
+    height: 26px;
+    border: 3px solid rgba(250,199,117,0.65);
+    border-radius: 50%;
+    transform: translate(-50%, -50%) rotate(-18deg);
+    box-shadow: 0 0 16px 3px rgba(250,199,117,0.35);
+  }
+  .planet-purple {
+    width: 22px;
+    height: 22px;
+    background: radial-gradient(circle at 35% 30%, #e9d5ff, #a855f7 55%, #581c87 100%);
+    box-shadow: 0 0 16px 4px rgba(168,85,247,0.55), 0 0 34px 10px rgba(168,85,247,0.2);
+    animation-delay: 2.2s;
+  }
+
+  .asteroid {
+    position: relative;
+    width: 10px;
+    height: 10px;
+    border-radius: 50%;
+    background: radial-gradient(circle at 35% 30%, #d4d4d8, #71717a 60%, #3f3f46 100%);
+    box-shadow: 0 0 8px 2px rgba(212,212,216,0.4);
+    animation: float 6s ease-in-out infinite;
+    animation-delay: 1s;
+  }
+
+  .comet {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 6px;
+    height: 6px;
+    border-radius: 50%;
+    background: #fff;
+    box-shadow: 0 0 10px 3px rgba(255,255,255,0.9);
+  }
+  .comet::before {
+    content: "";
+    position: absolute;
+    top: 50%;
+    right: 100%;
+    width: 70px;
+    height: 2px;
+    transform: translateY(-50%);
+    background: linear-gradient(90deg, transparent, rgba(255,255,255,0.7));
+  }
+  .comet-wrap {
+    position: absolute;
+    inset: 0;
+    animation: comet-drift 16s linear infinite;
+  }
+  @keyframes comet-drift {
+    0% { transform: translate(0, 0) rotate(28deg); opacity: 0; }
+    5% { opacity: 1; }
+    45% { opacity: 1; }
+    55% { transform: translate(340px, 200px) rotate(28deg); opacity: 0; }
+    100% { transform: translate(340px, 200px) rotate(28deg); opacity: 0; }
+  }
+
+  .saturn-body {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    width: 42px;
+    height: 42px;
+    border-radius: 50%;
+    transform: translate(-50%, -50%);
+    background: radial-gradient(circle at 32% 30%, #ffe4ad, #e0a95c 55%, #8a5a1f 100%);
+    box-shadow: 0 0 20px 6px rgba(240,190,120,0.45), 0 0 46px 14px rgba(240,190,120,0.18);
+  }
+
+  #wave-field-wrap {
+    position: relative;
+  }
+  #wave-field {
+    position: absolute;
+    inset: 0;
+    pointer-events: none;
+    z-index: 0;
+    opacity: 0;
+    transform: translateY(40px);
+    transition: opacity 1.4s ease, transform 1.4s ease;
+  }
+  #wave-field.in-view {
+    opacity: 1;
+    transform: translateY(0);
+  }
+  #wave-field svg {
+    width: 100%;
+    height: 100%;
+    display: block;
+  }
 </style>
 </head>
 <body class="min-h-screen w-full bg-zinc-950 text-zinc-100 flex justify-center font-body">
 
-<main class="w-full max-w-[480px] mx-auto relative shadow-2xl bg-zinc-950 overflow-hidden">
+<div id="space-bg" aria-hidden="true">
+  <div id="dark-overlay"></div>
 
-  <section class="relative w-full min-h-[92vh] flex flex-col justify-end overflow-hidden">
+  <div class="parallax pos-nebula-1" data-speed="0.05">
+    <div class="nebula nebula-1"></div>
+  </div>
+  <div class="parallax pos-nebula-2" data-speed="0.08">
+    <div class="nebula nebula-2"></div>
+  </div>
+  <div class="parallax pos-stars" data-speed="0.03">
+    <div id="stars"></div>
+  </div>
+  <div class="parallax pos-mars" data-speed="0.22">
+    <div class="planet planet-mars"></div>
+  </div>
+  <div class="parallax pos-blue" data-speed="0.3">
+    <div class="planet planet-blue"></div>
+  </div>
+  <div class="parallax pos-moon" data-speed="0.14">
+    <div class="moon">
+      <span class="crater c1"></span>
+      <span class="crater c2"></span>
+      <span class="crater c3"></span>
+    </div>
+  </div>
+  <div class="parallax pos-saturn" data-speed="0.18">
+    <div class="saturn-wrap">
+      <div class="saturn-ring"></div>
+      <div class="saturn-body"></div>
+    </div>
+  </div>
+  <div class="parallax pos-purple" data-speed="0.16">
+    <div class="planet planet-purple"></div>
+  </div>
+  <div class="parallax pos-asteroid" data-speed="0.35">
+    <div class="asteroid"></div>
+  </div>
+  <div class="parallax pos-comet" data-speed="0.1">
+    <div class="comet-wrap"><div class="comet"></div></div>
+  </div>
+
+  <div id="shooting-stars"></div>
+</div>
+
+<main class="w-full max-w-[480px] mx-auto relative z-10 shadow-2xl bg-transparent overflow-hidden">
+
+  <section id="hero-section" class="relative w-full min-h-[92vh] flex flex-col justify-end overflow-hidden">
     <img src="https://i.pinimg.com/736x/33/60/af/3360af143db482cc1b1d21f8c635626d.jpg" class="absolute inset-0 w-full h-full object-cover" />
     <div class="absolute inset-0 bg-gradient-to-b from-zinc-950/40 via-zinc-950/70 to-zinc-950"></div>
     <div class="absolute inset-0 bg-gradient-to-t from-fuchsia-950/20 via-transparent to-transparent"></div>
@@ -83,7 +369,10 @@
 
   <div id="packages" class="pl-6 pb-4 flex gap-4 overflow-x-auto snap-x snap-mandatory no-scrollbar"></div>
 
-  <section id="form-section" class="px-6 pt-14 pb-10">
+  <div id="wave-field-wrap" class="relative">
+    <div id="wave-field"></div>
+
+    <section id="form-section" class="relative z-10 px-6 pt-14 pb-10">
     <div class="flex items-center gap-2 mb-1">
       <i data-lucide="send" class="w-[16px] h-[16px] text-violet-400"></i>
       <span class="text-xs font-semibold uppercase tracking-widest text-violet-400">Form Pemesanan</span>
@@ -111,11 +400,13 @@
     </form>
   </section>
 
-  <footer class="px-6 py-8 border-t border-zinc-900 flex flex-col items-center gap-2 text-center">
+  <footer class="relative z-10 px-6 py-8 border-t border-zinc-900 flex flex-col items-center gap-2 text-center">
     <span class="text-xs text-zinc-500">© 2026 Kirei.Art. Semua karya adalah hasil orisinal.</span>
     <a href="https://solusilokal.id" target="_blank" class="text-xs text-zinc-600 hover:text-violet-400">Powered by SolusiLokal.id Tools</a>
     <div class="h-20"></div>
   </footer>
+
+  </div>
 
   <div id="sticky-cta" class="fixed bottom-0 left-0 right-0 z-40 flex justify-center px-6 pb-6 pointer-events-none transition-all duration-500 opacity-0 translate-y-4">
     <div class="w-full max-w-[480px] pointer-events-auto">
@@ -228,17 +519,134 @@ function sendOrder(e) {
   window.open(`https://wa.me/${pageData.waNumber}?text=${encodeURIComponent(message)}`, "_blank");
 }
 
-window.addEventListener("scroll", () => {
+const parallaxEls = document.querySelectorAll(".parallax");
+const darkOverlay = document.getElementById("dark-overlay");
+const heroSection = document.getElementById("hero-section");
+let scrollTicking = false;
+
+function handleScroll() {
+  const scrollY = window.scrollY;
+
+  parallaxEls.forEach((el) => {
+    const speed = parseFloat(el.dataset.speed) || 0.1;
+    el.style.transform = `translateY(${-scrollY * speed}px)`;
+  });
+
+  const heroHeight = heroSection ? heroSection.offsetHeight : window.innerHeight;
+  const progress = Math.min(Math.max(scrollY / heroHeight, 0), 1);
+  darkOverlay.style.opacity = progress;
+
   const cta = document.getElementById("sticky-cta");
-  if (window.scrollY > 520) {
+  if (scrollY > 520) {
     cta.classList.remove("opacity-0", "translate-y-4");
     cta.classList.add("opacity-100", "translate-y-0");
   } else {
     cta.classList.add("opacity-0", "translate-y-4");
     cta.classList.remove("opacity-100", "translate-y-0");
   }
-});
 
+  scrollTicking = false;
+}
+
+window.addEventListener("scroll", () => {
+  if (!scrollTicking) {
+    requestAnimationFrame(handleScroll);
+    scrollTicking = true;
+  }
+}, { passive: true });
+
+function spawnShootingStar() {
+  const el = document.getElementById("shooting-stars");
+  const star = document.createElement("div");
+  star.className = "shooting-star";
+  star.style.top = (Math.random() * 35).toFixed(1) + "%";
+  star.style.left = (Math.random() * 55).toFixed(1) + "%";
+  el.appendChild(star);
+  star.addEventListener("animationend", () => star.remove());
+}
+
+function scheduleShootingStar() {
+  const delay = 2500 + Math.random() * 4500;
+  setTimeout(() => {
+    spawnShootingStar();
+    scheduleShootingStar();
+  }, delay);
+}
+scheduleShootingStar();
+
+function renderStars() {
+  const el = document.getElementById("stars");
+  const total = 130;
+  let html = "";
+  for (let i = 0; i < total; i++) {
+    const size = (Math.random() * 2.2 + 0.8).toFixed(1);
+    const top = (Math.random() * 100).toFixed(1);
+    const left = (Math.random() * 100).toFixed(1);
+    const duration = (Math.random() * 3 + 2).toFixed(1);
+    const delay = (Math.random() * 5).toFixed(1);
+    const glow = size > 2 ? `box-shadow:0 0 ${(size * 3).toFixed(0)}px rgba(255,255,255,0.8);` : "";
+    html += `<span class="star" style="width:${size}px;height:${size}px;top:${top}%;left:${left}%;animation-duration:${duration}s;animation-delay:${delay}s;${glow}"></span>`;
+  }
+  el.innerHTML = html;
+}
+
+function renderWaveField() {
+  const el = document.getElementById("wave-field");
+  const width = 480;
+  const height = 620;
+  const lineCount = 30;
+  let paths = "";
+
+  for (let i = 0; i < lineCount; i++) {
+    const t = i / (lineCount - 1);
+    const baseY = 30 + t * 300 + Math.pow(t, 1.7) * 40;
+    const amp = 95 - t * 45;
+    const jitter = Math.sin(i * 12.9) * 6;
+    const startY = baseY + 20 + jitter;
+    const peakY = baseY - amp;
+    const midY = peakY + amp * 0.28;
+    const endY = baseY + amp * 1.35;
+
+    const d = `M -20 ${startY.toFixed(1)} ` +
+      `C ${(width * 0.2).toFixed(1)} ${(startY - amp * 0.25).toFixed(1)}, ` +
+      `${(width * 0.35).toFixed(1)} ${peakY.toFixed(1)}, ` +
+      `${(width * 0.5).toFixed(1)} ${midY.toFixed(1)} ` +
+      `C ${(width * 0.65).toFixed(1)} ${(midY + amp * 0.35).toFixed(1)}, ` +
+      `${(width * 0.8).toFixed(1)} ${(endY - amp * 0.3).toFixed(1)}, ` +
+      `${(width + 20).toFixed(1)} ${endY.toFixed(1)}`;
+
+    const opacity = (0.12 + t * 0.5).toFixed(2);
+    paths += `<path d="${d}" fill="none" stroke="url(#waveGrad)" stroke-width="1.1" opacity="${opacity}" />`;
+  }
+
+  el.innerHTML = `
+    <svg viewBox="0 0 ${width} ${height}" preserveAspectRatio="none" xmlns="http://www.w3.org/2000/svg">
+      <defs>
+        <linearGradient id="waveGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+          <stop offset="0%" stop-color="#a855f7" />
+          <stop offset="50%" stop-color="#8b5cf6" />
+          <stop offset="100%" stop-color="#d946ef" />
+        </linearGradient>
+      </defs>
+      ${paths}
+    </svg>
+  `;
+}
+
+const waveObserver = new IntersectionObserver(
+  (entries) => {
+    entries.forEach((entry) => {
+      if (entry.isIntersecting) {
+        document.getElementById("wave-field").classList.add("in-view");
+      }
+    });
+  },
+  { threshold: 0.15 }
+);
+waveObserver.observe(document.getElementById("wave-field-wrap"));
+
+renderWaveField();
+renderStars();
 renderGallery();
 renderPackages();
 renderPackageSelect();

@@ -1,0 +1,521 @@
+/*
+  =======================================================================
+  [COPY-PASTE SECTION] INDEX.HTML SEO & HEAD TAGS
+  Salin blok kode HTML di bawah ini ke dalam file index.html (di dalam <head>)
+  =======================================================================
+  
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+  <meta name="theme-color" content="#09090b" />
+  
+  <!-- Primary Meta Tags -->
+  <title>Nexa Artworks | Jasa Commission Digital Art</title>
+  <meta name="title" content="Nexa Artworks | Jasa Commission Digital Art" />
+  <meta name="description" content="Menerima jasa ilustrasi digital berkualitas tinggi bergaya anime & semi-realis. Cocok untuk kado, profil, maupun kebutuhan komersial." />
+  
+  <!-- Open Graph / Facebook / WhatsApp -->
+  <meta property="og:type" content="website" />
+  <meta property="og:url" content="https://nexaartworks.com/" />
+  <meta property="og:title" content="Nexa Artworks | Jasa Commission Digital Art" />
+  <meta property="og:description" content="Menerima jasa ilustrasi digital berkualitas tinggi bergaya anime & semi-realis. Cocok untuk kado, profil, maupun kebutuhan komersial." />
+  <meta property="og:image" content="https://images.unsplash.com/photo-1549490349-8643362247b5?auto=format&fit=crop&w=1200&q=80" />
+  
+  <!-- Twitter -->
+  <meta property="twitter:card" content="summary_large_image" />
+  <meta property="twitter:url" content="https://nexaartworks.com/" />
+  <meta property="twitter:title" content="Nexa Artworks | Jasa Commission Digital Art" />
+  <meta property="twitter:description" content="Menerima jasa ilustrasi digital berkualitas tinggi bergaya anime & semi-realis." />
+  <meta property="twitter:image" content="https://images.unsplash.com/photo-1549490349-8643362247b5?auto=format&fit=crop&w=1200&q=80" />
+
+  <!-- Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+  
+  =======================================================================
+*/
+
+import React, { useState, useEffect } from 'react';
+import { 
+  Instagram, 
+  Palette, 
+  CheckCircle2, 
+  ChevronLeft, 
+  ChevronRight, 
+  X, 
+  MessageCircle,
+  ExternalLink,
+  Sparkles,
+  Share2,
+  Star
+} from 'lucide-react';
+
+const TiktokIcon = ({ size = 20, color = "currentColor" }) => (
+  <svg width={size} height={size} viewBox="0 0 24 24" fill="none" stroke={color} strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+    <path d="M9 12a4 4 0 1 0 4 4V4a5 5 0 0 0 5 5" />
+  </svg>
+);
+
+// Custom styles for hiding scrollbars but keeping functionality
+const CustomStyles = () => (
+  <style dangerouslySetInnerHTML={{__html: `
+    :root {
+      font-family: 'Outfit', sans-serif;
+    }
+    .hide-scrollbar::-webkit-scrollbar {
+      display: none;
+    }
+    .hide-scrollbar {
+      -ms-overflow-style: none;
+      scrollbar-width: none;
+    }
+    html {
+      scroll-behavior: smooth;
+    }
+    body {
+      background-color: #09090b; /* zinc-950 */
+    }
+  `}} />
+);
+
+// Konfigurasi Data Halaman Utama - Mudah diedit oleh developer
+const pageData = {
+  brandName: "Apresia Denita Harmony",
+  waNumber: "6289512633123", // Ganti dengan nomor WhatsApp aktif
+  profileUrl: "https://i.pinimg.com/736x/0d/f3/50/0df3504ba669e5cc340fe0ee43baecf7.jpg",
+  heroImage: "https://i.pinimg.com/736x/8d/c2/3c/8dc23c5d9639cd82fcad0c3e1ac304ef.jpg",
+  tagline: "Open commis urgent",
+  aboutText: "Menerima jasa ilustrasi digital berkualitas tinggi untuk kebutuhan personal, kado, maupun komersial. Spesialisasi pada gaya anime & semi-realis.",
+  socials: [
+    { platform: "Instagram", url: "https://www.instagram.com/frymgii?igsh=MXF0bTl5emwzZXkyeQ==", icon: <Instagram size={20} /> },
+    { platform: "TikTok", url: "https://www.tiktok.com/@ryenranova?_r=1&_t=ZS-98oOqnFirFR", icon: <TiktokIcon size={20} /> }
+  ],
+  gallery: [
+    "https://i.pinimg.com/736x/5d/0c/75/5d0c759fba5552911a27224829bf1715.jpg",
+    "https://i.pinimg.com/736x/67/ee/af/67eeafb9747c4fbf8adcced1cc96d2f1.jpg",
+    "https://i.pinimg.com/736x/f9/32/09/f9320920ebe434231a4e2dce272758f0.jpg",
+    "https://images.unsplash.com/photo-1541961017774-22349e4a1262?auto=format&fit=crop&w=800&q=80",
+    "https://images.unsplash.com/photo-1563089145-599997674d42?auto=format&fit=crop&w=800&q=80"
+  ],
+  packages: [
+    { 
+      id: "headshot", 
+      title: "Headshot", 
+      price: "Rp 150.000", 
+      desc: "Ilustrasi sebatas kepala hingga leher (Bahu).", 
+      features: ["Resolusi 2K (300dpi)", "Full Color & Shading", "Simple Background", "Maks 2x Revisi Sketsa"] 
+    },
+    { 
+      id: "bustup", 
+      title: "Bust Up", 
+      price: "Rp 250.000", 
+      desc: "Ilustrasi sebatas dada yang lebih detail.", 
+      features: ["Resolusi 4K (300dpi)", "Full Color & Shading", "Simple/Abstract Background", "Maks 3x Revisi"] 
+    },
+    { 
+      id: "halfbody", 
+      title: "Half Body", 
+      price: "Rp 350.000", 
+      desc: "Ilustrasi sebatas pinggang / paha.", 
+      features: ["Resolusi 4K (300dpi)", "Full Color & Shading", "Custom Background Menengah", "Maks 3x Revisi", "File Mentah (PSD)"] 
+    },
+    { 
+      id: "fullbody", 
+      title: "Full Body", 
+      price: "Rp 500.000", 
+      desc: "Ilustrasi seluruh tubuh secara proporsional.", 
+      features: ["Resolusi 4K (300dpi)", "Full Color & Shading", "Detailed Background", "Revisi Bebas (Wajar)", "File Mentah (PSD)", "Izin Komersial Dasar"] 
+    }
+  ],
+  testimonials: [
+    {
+      name: "Sarah Aurelia",
+      rating: 5,
+      text: "Hasilnya bagus banget, warnanya pop out! Pengerjaannya juga on-time, artstylenya cocok banget buat kado ultah temen. Fix bakal order lagi untuk project selanjutnya!"
+    },
+    {
+      name: "Budi Santoso",
+      rating: 5,
+      text: "Sempat minta revisi di bagian shading rambut langsung dikerjakan dengan cepat. Kualitas resolusi gambarnya tajam, adminnya juga komunikatif parah. Recommended!"
+    },
+    {
+      name: "Clarissa J.",
+      rating: 5,
+      text: "Suka banget sama detail shading dan coloring-nya! Harganya juga sangat masuk akal buat kualitas sebagus ini. Makasih ya kak, sukses terus jasanya!"
+    },
+    {
+      name: "Dimas Aditya",
+      rating: 5,
+      text: "Pertama kali commission art dan gak nyesel sama sekali. Komunikatif banget nanya referensinya sedetail mungkin biar gak ada salah miskom. Hasil akhir sangat memuaskan."
+    }
+  ]
+};
+
+export default function App() {
+  const [showStickyCta, setShowStickyCta] = useState(false);
+  const [lightboxIndex, setLightboxIndex] = useState(null);
+  const [showToast, setShowToast] = useState(false);
+
+  // Scroll listener for sticky CTA
+  useEffect(() => {
+    const handleScroll = () => {
+      // Tampilkan CTA jika user scroll lebih dari 400px
+      if (window.scrollY > 400) {
+        setShowStickyCta(true);
+      } else {
+        setShowStickyCta(false);
+      }
+    };
+    
+    window.addEventListener('scroll', handleScroll, { passive: true });
+    return () => window.removeEventListener('scroll', handleScroll);
+  }, []);
+
+  // Navigasi Lightbox
+  const openLightbox = (index) => setLightboxIndex(index);
+  const closeLightbox = () => setLightboxIndex(null);
+  
+  const nextImage = (e) => {
+    e.stopPropagation();
+    setLightboxIndex((prev) => (prev === pageData.gallery.length - 1 ? 0 : prev + 1));
+  };
+  
+  const prevImage = (e) => {
+    e.stopPropagation();
+    setLightboxIndex((prev) => (prev === 0 ? pageData.gallery.length - 1 : prev - 1));
+  };
+
+  // Format WhatsApp Link
+  const handleOrder = (packageName = "") => {
+    let message = `Halo Kak, saya tertarik untuk order Commission Art dari ${pageData.brandName}.`;
+    if (packageName) {
+      message = `Halo Kak, saya ingin order Commission Art untuk paket *${packageName}*. Boleh info slot dan ketentuannya?`;
+    }
+    const url = `https://wa.me/${pageData.waNumber}?text=${encodeURIComponent(message)}`;
+    window.open(url, '_blank');
+  };
+
+  const handleShare = async () => {
+    if (navigator.share) {
+      try {
+        await navigator.share({
+          title: pageData.brandName,
+          text: pageData.tagline,
+          url: window.location.href,
+        });
+      } catch (error) {
+        console.log('Batal membagikan');
+      }
+    } else {
+      // Fallback copy to clipboard jika browser tidak support native share
+      navigator.clipboard.writeText(window.location.href);
+      setShowToast(true);
+      setTimeout(() => setShowToast(false), 3000);
+    }
+  };
+
+  return (
+    <div className="min-h-screen bg-black flex justify-center w-full">
+      <CustomStyles />
+      
+      {/* Container Utama Mobile-First */}
+      <main className="w-full max-w-[480px] bg-zinc-950 text-zinc-100 relative shadow-2xl overflow-x-hidden min-h-screen pb-24">
+        
+        {/* HERO SECTION */}
+        <section className="relative w-full h-[65vh] min-h-[500px]">
+          
+          {/* SHARE BUTTON PANEL */}
+          <div className="absolute top-5 right-5 z-20">
+            <button
+              onClick={handleShare}
+              className="bg-black/30 backdrop-blur-md border border-white/20 p-2.5 rounded-full text-zinc-100 hover:bg-amber-500 hover:text-zinc-950 hover:border-amber-500 transition-all shadow-lg active:scale-95"
+              aria-label="Bagikan"
+            >
+              <Share2 size={20} />
+            </button>
+            
+            {/* Custom Toast Notifikasi Copy Link */}
+            {showToast && (
+              <div className="absolute top-14 right-0 bg-zinc-800 text-zinc-100 text-xs px-3 py-2 rounded-lg whitespace-nowrap shadow-xl border border-zinc-700">
+                Link disalin!
+              </div>
+            )}
+          </div>
+
+          {/* Background Image & Overlay */}
+          <div className="absolute inset-0">
+            <img 
+              src={pageData.heroImage} 
+              alt="Hero Art" 
+              className="w-full h-full object-cover object-top"
+            />
+            {/* Gradient untuk transisi smooth ke background hitam di bawah */}
+            <div className="absolute inset-0 bg-gradient-to-b from-zinc-950/20 via-zinc-950/60 to-zinc-950"></div>
+          </div>
+
+          {/* Hero Content (Diposisikan di bawah) */}
+          <div className="absolute bottom-0 w-full px-6 pb-8 flex flex-col items-center text-center">
+            {/* Profil Avatar */}
+            <div className="w-24 h-24 rounded-full border-4 border-zinc-950 shadow-[0_0_20px_rgba(245,158,11,0.2)] overflow-hidden mb-4 relative z-10">
+              <img 
+                src={pageData.profileUrl} 
+                alt={pageData.brandName} 
+                className="w-full h-full object-cover"
+              />
+            </div>
+
+            {/* Nama Brand & Verifikasi */}
+            <h1 className="text-3xl font-extrabold tracking-tight mb-2 flex items-center gap-2">
+              {pageData.brandName}
+              <Sparkles className="text-amber-500" size={20} />
+            </h1>
+            
+            {/* Social Media (Button Navigasi Panel) */}
+            <div className="w-full grid grid-cols-2 gap-3 mb-5 mt-1">
+              {pageData.socials.map((social, idx) => (
+                <a 
+                  key={idx} 
+                  href={social.url}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="bg-zinc-900/80 backdrop-blur border border-zinc-800 rounded-xl py-2.5 px-4 flex items-center justify-center gap-2 text-zinc-300 hover:text-zinc-950 hover:bg-amber-500 hover:border-amber-500 transition-all hover:-translate-y-1 shadow-lg group"
+                  aria-label={social.platform}
+                >
+                  <span className="text-zinc-400 group-hover:text-zinc-950 transition-colors flex items-center justify-center">
+                    {social.icon}
+                  </span>
+                  <span className="font-semibold text-sm tracking-wide">
+                    {social.platform}
+                  </span>
+                </a>
+              ))}
+            </div>
+
+            {/* Tagline & Deskripsi */}
+            <p className="text-amber-400 font-medium mb-2 text-sm">{pageData.tagline}</p>
+            <p className="text-zinc-400 text-sm leading-relaxed mb-6 px-2">
+              {pageData.aboutText}
+            </p>
+
+            {/* Primary CTA */}
+            <button 
+              onClick={() => handleOrder()}
+              className="w-full bg-amber-500 hover:bg-amber-400 text-zinc-950 font-bold py-4 rounded-2xl flex items-center justify-center gap-2 transition-all active:scale-95 shadow-[0_0_20px_rgba(245,158,11,0.3)]"
+            >
+              <MessageCircle size={20} />
+              Konsultasi via WhatsApp
+            </button>
+          </div>
+        </section>
+
+        {/* GALLERY SECTION */}
+        <section className="py-10">
+          <div className="px-6 mb-4 flex items-center justify-between">
+            <h2 className="text-xl font-bold">Galeri Karya</h2>
+            <span className="text-xs text-zinc-500 font-medium bg-zinc-900 px-3 py-1 rounded-full">Swipe &rarr;</span>
+          </div>
+          
+          {/* Horizontal Scroll Container */}
+          <div className="flex overflow-x-auto snap-x snap-mandatory hide-scrollbar gap-4 px-6 pb-6">
+            {pageData.gallery.map((imgUrl, idx) => (
+              <div 
+                key={idx}
+                onClick={() => openLightbox(idx)}
+                className="snap-center shrink-0 w-[75%] aspect-[4/5] rounded-2xl overflow-hidden relative group cursor-pointer border border-zinc-800 shadow-xl"
+              >
+                <img 
+                  src={imgUrl} 
+                  alt={`Artwork ${idx + 1}`} 
+                  className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110"
+                />
+                <div className="absolute inset-0 bg-black/0 group-hover:bg-black/30 transition-all flex items-center justify-center">
+                  <ExternalLink className="text-white opacity-0 group-hover:opacity-100 transition-opacity" />
+                </div>
+              </div>
+            ))}
+          </div>
+        </section>
+
+        {/* PRICING PACKAGES SECTION */}
+        <section className="py-6 bg-zinc-900/30 border-y border-zinc-900">
+          <div className="px-6 mb-6">
+            <h2 className="text-xl font-bold">Paket Layanan</h2>
+            <p className="text-sm text-zinc-500 mt-1">Pilih sesuai kebutuhan ilustrasi kamu.</p>
+          </div>
+
+          <div className="flex overflow-x-auto snap-x snap-mandatory hide-scrollbar gap-5 px-6 pb-8">
+            {pageData.packages.map((pkg) => (
+              <div 
+                key={pkg.id}
+                className="snap-center shrink-0 w-[85%] bg-zinc-900 border border-zinc-800 rounded-3xl p-6 flex flex-col relative"
+              >
+                {/* Popular Badge (Contoh highlight paket tertentu) */}
+                {pkg.id === 'halfbody' && (
+                  <div className="absolute -top-3 left-6 bg-amber-500 text-zinc-950 text-xs font-bold px-3 py-1 rounded-full">
+                    Paling Laris
+                  </div>
+                )}
+                
+                <h3 className="text-lg font-bold text-zinc-300">{pkg.title}</h3>
+                <div className="text-2xl font-extrabold text-amber-500 mt-1 mb-2">{pkg.price}</div>
+                <p className="text-sm text-zinc-400 mb-6 min-h-[40px]">{pkg.desc}</p>
+                
+                <div className="space-y-3 flex-grow mb-8">
+                  {pkg.features.map((feature, idx) => (
+                    <div key={idx} className="flex items-start gap-2 text-sm text-zinc-300">
+                      <CheckCircle2 size={18} className="text-amber-500 shrink-0 mt-0.5" />
+                      <span>{feature}</span>
+                    </div>
+                  ))}
+                </div>
+                
+                <button 
+                  onClick={() => handleOrder(pkg.title)}
+                  className={`w-full py-3.5 rounded-xl font-bold flex items-center justify-center gap-2 transition-all active:scale-95 ${
+                    pkg.id === 'halfbody' 
+                      ? 'bg-amber-500 hover:bg-amber-400 text-zinc-950 shadow-[0_4px_14px_rgba(245,158,11,0.25)]' 
+                      : 'bg-zinc-800 hover:bg-zinc-700 text-white'
+                  }`}
+                >
+                  Pesan Paket Ini
+                </button>
+              </div>
+            ))}
+          </div>
+        </section>
+
+        {/* TESTIMONI SECTION */}
+        <section className="py-8 bg-zinc-950">
+          <div className="px-6 mb-4">
+            <h2 className="text-xl font-bold flex items-center gap-2">
+              Ulasan Klien <Star size={18} className="text-amber-500" fill="currentColor" />
+            </h2>
+            <p className="text-sm text-zinc-500 mt-1">Apa kata mereka tentang hasil karya kami.</p>
+          </div>
+          
+          <div className="flex overflow-x-auto snap-x snap-mandatory hide-scrollbar gap-4 px-6 pb-4">
+            {pageData.testimonials.map((testi, idx) => (
+              <div 
+                key={idx}
+                className="snap-center shrink-0 w-[80%] bg-zinc-900 border border-zinc-800 rounded-2xl p-5 flex flex-col"
+              >
+                {/* Bintang Rating */}
+                <div className="flex gap-1 mb-3 text-amber-500">
+                  {[...Array(5)].map((_, i) => (
+                    <Star key={i} size={14} fill={i < testi.rating ? "currentColor" : "none"} />
+                  ))}
+                </div>
+                
+                {/* Teks Review */}
+                <p className="text-zinc-300 text-sm italic mb-5 flex-grow">"{testi.text}"</p>
+                
+                {/* Profil Reviewer */}
+                <div className="flex items-center gap-3 mt-auto pt-4 border-t border-zinc-800">
+                  <div className="w-8 h-8 rounded-full bg-zinc-800 flex items-center justify-center font-bold text-xs text-amber-500">
+                    {testi.name.charAt(0)}
+                  </div>
+                  <div className="text-sm font-semibold text-zinc-200">{testi.name}</div>
+                </div>
+              </div>
+            ))}
+          </div>
+        </section>
+
+        {/* SYARAT & KETENTUAN SINGKAT */}
+        <section className="py-10 px-6">
+          <div className="bg-zinc-900/50 border border-zinc-800/50 rounded-2xl p-5">
+            <h3 className="font-bold mb-3 flex items-center gap-2">
+              <span className="w-2 h-2 rounded-full bg-amber-500"></span>
+              Alur Pemesanan
+            </h3>
+            <ol className="text-sm text-zinc-400 space-y-2 list-decimal list-inside">
+              <li>Chat & kirimkan brief / referensi visual.</li>
+              <li>DP 50% untuk mulai pengerjaan sketsa.</li>
+              <li>Revisi dilakukan pada tahap sketsa & warna dasar.</li>
+              <li>Pelunasan setelah hasil akhir disetujui.</li>
+              <li>Pengiriman file final (Gdrive / Email).</li>
+            </ol>
+          </div>
+        </section>
+
+        {/* FOOTER */}
+        <footer className="pt-6 pb-12 px-6 text-center border-t border-zinc-900">
+          <p className="text-zinc-500 text-sm mb-4">
+            &copy; {new Date().getFullYear()} {pageData.brandName}. All rights reserved.
+          </p>
+          <a 
+            href="https://solusilokal.id" 
+            target="_blank"
+            rel="noopener noreferrer"
+            className="inline-block text-xs text-zinc-600 hover:text-amber-500 transition-colors"
+          >
+            Powered by <span className="font-semibold">SolusiLokal.id Tools</span>
+          </a>
+        </footer>
+
+        {/* STICKY CTA (Bottom Fixed) */}
+        <div 
+          className={`fixed bottom-6 left-1/2 -translate-x-1/2 w-[calc(100%-2rem)] max-w-[448px] z-40 transition-all duration-500 ease-in-out ${
+            showStickyCta ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-12 pointer-events-none'
+          }`}
+        >
+          <button 
+            onClick={() => handleOrder()}
+            className="w-full bg-amber-500 hover:bg-amber-400 text-zinc-950 font-bold py-4 px-6 rounded-full flex items-center justify-between shadow-[0_8px_30px_rgba(245,158,11,0.3)] active:scale-95 transition-transform"
+          >
+            <span className="flex items-center gap-2">
+              <MessageCircle size={20} />
+              Mulai Pesan Sekarang
+            </span>
+            <ChevronRight size={20} />
+          </button>
+        </div>
+
+        {/* LIGHTBOX OVERLAY */}
+        {lightboxIndex !== null && (
+          <div 
+            className="fixed inset-0 z-50 bg-black/95 backdrop-blur-sm flex flex-col justify-center items-center touch-none"
+            onClick={closeLightbox}
+          >
+            {/* Top Bar */}
+            <div className="absolute top-0 w-full max-w-[480px] p-4 flex justify-between items-center text-white z-10">
+              <span className="text-sm font-medium bg-black/50 px-3 py-1 rounded-full">
+                {lightboxIndex + 1} / {pageData.gallery.length}
+              </span>
+              <button 
+                onClick={closeLightbox}
+                className="w-10 h-10 bg-black/50 rounded-full flex items-center justify-center hover:bg-white/20 transition-colors"
+              >
+                <X size={24} />
+              </button>
+            </div>
+
+            {/* Main Image */}
+            <img 
+              src={pageData.gallery[lightboxIndex]} 
+              alt="Lightbox view" 
+              className="w-full max-h-[80vh] object-contain select-none"
+              onClick={(e) => e.stopPropagation()} 
+            />
+
+            {/* Navigation Buttons */}
+            <div className="absolute w-full max-w-[480px] flex justify-between px-4 top-1/2 -translate-y-1/2 pointer-events-none">
+              <button 
+                onClick={prevImage}
+                className="w-12 h-12 bg-black/50 rounded-full flex items-center justify-center text-white pointer-events-auto hover:bg-white/20 backdrop-blur active:scale-90 transition-all"
+              >
+                <ChevronLeft size={28} />
+              </button>
+              <button 
+                onClick={nextImage}
+                className="w-12 h-12 bg-black/50 rounded-full flex items-center justify-center text-white pointer-events-auto hover:bg-white/20 backdrop-blur active:scale-90 transition-all"
+              >
+                <ChevronRight size={28} />
+              </button>
+            </div>
+          </div>
+        )}
+      </main>
+    </div>
+  );
+}

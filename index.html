@@ -15,60 +15,38 @@
   html { scroll-behavior: smooth; }
   body { background: #09090b; }
 
-  /* ============ SPACE BACKGROUND ============ */
-  #space-bg {
-    position: fixed;
-    top: 0;
-    left: 50%;
-    transform: translateX(-50%);
-    width: 100%;
-    max-width: 480px;
-    height: 100vh;
+  /* ============ HERO SPACE LAYER (scoped to hero only) ============ */
+  #hero-space {
+    position: absolute;
+    inset: 0;
     overflow: hidden;
-    z-index: 0;
     pointer-events: none;
-    background:
-      radial-gradient(ellipse at 20% 10%, rgba(139,92,246,0.16), transparent 55%),
-      radial-gradient(ellipse at 85% 30%, rgba(217,70,239,0.12), transparent 50%),
-      radial-gradient(ellipse at 50% 100%, rgba(76,29,149,0.20), transparent 60%),
-      linear-gradient(180deg, #0b0a17 0%, #0a0912 45%, #09090b 100%);
+    z-index: 1;
   }
 
-  /* wrapper layer: handles scroll-parallax movement via JS (transform: translateY) */
+  /* wrapper: posisi objek + digerakkan lewat JS (transform) saat discroll, terpisah dari animasi float bawaan */
   .parallax {
     position: absolute;
     will-change: transform;
   }
-  .pos-nebula-1 { top: -8%; left: -15%; width: 60%; height: 30%; }
-  .pos-nebula-2 { bottom: 10%; right: -20%; width: 55%; height: 28%; }
-  .pos-stars { inset: 0; width: 100%; height: 100%; }
-  .pos-mars { top: 12%; left: 8%; }
-  .pos-blue { top: 46%; right: 6%; }
-  .pos-moon { top: 6%; right: 14%; }
-  .pos-saturn { bottom: 8%; left: 10%; }
-  .pos-purple { top: 28%; right: 20%; }
-  .pos-asteroid { top: 62%; left: 18%; }
-  .pos-comet { top: 20%; left: -10%; }
-
-  #dark-overlay {
-    position: absolute;
-    inset: 0;
-    background: #000;
-    opacity: 0;
-    z-index: 2;
-    pointer-events: none;
-  }
 
   .nebula {
-    position: absolute;
-    inset: 0;
+    position: relative;
+    width: 100%;
+    height: 100%;
     border-radius: 50%;
-    filter: blur(60px);
+    filter: blur(55px);
     opacity: 0.55;
     animation: nebula-pulse 10s ease-in-out infinite;
   }
   .nebula-1 { background: radial-gradient(circle, rgba(139,92,246,0.55), transparent 70%); }
   .nebula-2 { background: radial-gradient(circle, rgba(217,70,239,0.4), transparent 70%); animation-delay: 3s; }
+  .hero-pos-nebula-1 { top: -12%; left: -20%; width: 75%; height: 45%; }
+  .hero-pos-nebula-2 { top: -5%; right: -25%; width: 65%; height: 40%; }
+  @keyframes nebula-pulse {
+    0%, 100% { opacity: 0.35; transform: scale(1); }
+    50% { opacity: 0.6; transform: scale(1.12); }
+  }
 
   .shooting-star {
     position: absolute;
@@ -87,11 +65,11 @@
     100% { transform: translate(260px, 180px) rotate(35deg); opacity: 0; }
   }
 
-  @keyframes nebula-pulse {
-    0%, 100% { opacity: 0.35; transform: scale(1); }
-    50% { opacity: 0.6; transform: scale(1.12); }
+  #stars {
+    position: relative;
+    width: 100%;
+    height: 100%;
   }
-
   .star {
     position: absolute;
     background: #fff;
@@ -111,10 +89,6 @@
     0%, 100% { transform: translateY(0px) rotate(0deg); }
     50% { transform: translateY(-10px) rotate(4deg); }
   }
-  @keyframes spin-slow {
-    from { transform: rotate(0deg); }
-    to { transform: rotate(360deg); }
-  }
 
   .planet {
     position: relative;
@@ -122,73 +96,92 @@
     animation: float 7s ease-in-out infinite;
   }
   .planet-mars {
-    width: 46px;
-    height: 46px;
+    width: 70px;
+    height: 70px;
     background: radial-gradient(circle at 32% 30%, #ff9d6e, #d9542a 55%, #7a2a10 100%);
-    box-shadow: 0 0 22px 6px rgba(255,138,90,0.45), 0 0 50px 14px rgba(255,90,40,0.2);
+    box-shadow: 0 0 26px 7px rgba(255,138,90,0.45), 0 0 56px 16px rgba(255,90,40,0.2);
   }
   .planet-blue {
-    width: 30px;
-    height: 30px;
+    width: 36px;
+    height: 36px;
     background: radial-gradient(circle at 35% 30%, #93c5fd, #3b82f6 55%, #1e3a8a 100%);
     box-shadow: 0 0 18px 5px rgba(96,165,250,0.5), 0 0 40px 12px rgba(59,130,246,0.2);
     animation-delay: 1.5s;
   }
+  .planet-purple {
+    width: 28px;
+    height: 28px;
+    background: radial-gradient(circle at 35% 30%, #e9d5ff, #a855f7 55%, #581c87 100%);
+    box-shadow: 0 0 16px 4px rgba(168,85,247,0.55), 0 0 34px 10px rgba(168,85,247,0.2);
+    animation-delay: 2.2s;
+  }
+  .hero-pos-mars { top: 22%; left: 0%; }
+  .hero-pos-blue { top: 18%; right: 8%; }
+  .hero-pos-purple { top: 6%; left: 40%; }
 
   .moon {
     position: relative;
-    width: 64px;
-    height: 64px;
+    width: 76px;
+    height: 76px;
     border-radius: 50%;
     background: radial-gradient(circle at 35% 30%, #fdfdf9, #e4e2da 55%, #b8b6ab 100%);
-    box-shadow: 0 0 24px 8px rgba(255,255,255,0.35), 0 0 60px 18px rgba(224,222,255,0.15);
+    box-shadow: 0 0 26px 9px rgba(255,255,255,0.35), 0 0 64px 20px rgba(224,222,255,0.15);
     animation: float 9s ease-in-out infinite;
     animation-delay: 0.5s;
   }
+  .hero-pos-moon { top: 3%; left: 4%; }
   .crater {
     position: absolute;
     border-radius: 50%;
     background: rgba(150,148,140,0.45);
   }
-  .crater.c1 { width: 12px; height: 12px; top: 14px; left: 16px; }
-  .crater.c2 { width: 7px; height: 7px; top: 34px; left: 34px; }
-  .crater.c3 { width: 5px; height: 5px; top: 20px; left: 40px; }
+  .crater.c1 { width: 14px; height: 14px; top: 16px; left: 18px; }
+  .crater.c2 { width: 8px; height: 8px; top: 40px; left: 40px; }
+  .crater.c3 { width: 6px; height: 6px; top: 24px; left: 48px; }
 
   .saturn-wrap {
     position: relative;
-    width: 90px;
-    height: 90px;
+    width: 104px;
+    height: 104px;
     animation: float-slow 11s ease-in-out infinite;
   }
+  .hero-pos-saturn { top: 1%; right: 2%; }
   .saturn-ring {
     position: absolute;
     top: 50%;
     left: 50%;
-    width: 96px;
-    height: 26px;
+    width: 112px;
+    height: 30px;
     border: 3px solid rgba(250,199,117,0.65);
     border-radius: 50%;
     transform: translate(-50%, -50%) rotate(-18deg);
     box-shadow: 0 0 16px 3px rgba(250,199,117,0.35);
   }
-  .planet-purple {
-    width: 22px;
-    height: 22px;
-    background: radial-gradient(circle at 35% 30%, #e9d5ff, #a855f7 55%, #581c87 100%);
-    box-shadow: 0 0 16px 4px rgba(168,85,247,0.55), 0 0 34px 10px rgba(168,85,247,0.2);
-    animation-delay: 2.2s;
+  .saturn-body {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    width: 50px;
+    height: 50px;
+    border-radius: 50%;
+    transform: translate(-50%, -50%);
+    background: radial-gradient(circle at 32% 30%, #ffe4ad, #e0a95c 55%, #8a5a1f 100%);
+    box-shadow: 0 0 22px 7px rgba(240,190,120,0.45), 0 0 50px 16px rgba(240,190,120,0.18);
   }
 
   .asteroid {
     position: relative;
-    width: 10px;
-    height: 10px;
+    width: 12px;
+    height: 12px;
     border-radius: 50%;
     background: radial-gradient(circle at 35% 30%, #d4d4d8, #71717a 60%, #3f3f46 100%);
     box-shadow: 0 0 8px 2px rgba(212,212,216,0.4);
     animation: float 6s ease-in-out infinite;
     animation-delay: 1s;
   }
+  .hero-pos-asteroid-1 { top: 12%; left: 24%; }
+  .hero-pos-asteroid-2 { top: 32%; right: 28%; }
+  .hero-pos-asteroid-3 { top: 4%; right: 34%; }
 
   .comet {
     position: absolute;
@@ -219,102 +212,154 @@
     0% { transform: translate(0, 0) rotate(28deg); opacity: 0; }
     5% { opacity: 1; }
     45% { opacity: 1; }
-    55% { transform: translate(340px, 200px) rotate(28deg); opacity: 0; }
-    100% { transform: translate(340px, 200px) rotate(28deg); opacity: 0; }
+    55% { transform: translate(300px, 160px) rotate(28deg); opacity: 0; }
+    100% { transform: translate(300px, 160px) rotate(28deg); opacity: 0; }
   }
-
-  .saturn-body {
-    position: absolute;
-    top: 50%;
-    left: 50%;
-    width: 42px;
-    height: 42px;
-    border-radius: 50%;
-    transform: translate(-50%, -50%);
-    background: radial-gradient(circle at 32% 30%, #ffe4ad, #e0a95c 55%, #8a5a1f 100%);
-    box-shadow: 0 0 20px 6px rgba(240,190,120,0.45), 0 0 46px 14px rgba(240,190,120,0.18);
+  .carousel-card {
+    transition: transform 0.35s cubic-bezier(0.22, 1, 0.36, 1), opacity 0.35s ease, box-shadow 0.35s ease;
+    transform: scale(0.9);
+    transform-origin: top center;
+    opacity: 0.5;
   }
-
-  #wave-field-wrap {
-    position: relative;
-  }
-  #wave-field {
-    position: absolute;
-    inset: 0;
-    pointer-events: none;
-    z-index: 0;
-    opacity: 0;
-    transform: translateY(40px);
-    transition: opacity 1.4s ease, transform 1.4s ease;
-  }
-  #wave-field.in-view {
+  .carousel-card.carousel-active {
+    transform: scale(1.04);
     opacity: 1;
-    transform: translateY(0);
+    animation: pkg-glow-pulse 2.1s ease-in-out infinite;
   }
-  #wave-field svg {
-    width: 100%;
-    height: 100%;
-    display: block;
+  @keyframes pkg-glow-pulse {
+    0%, 100% {
+      box-shadow: 0 0 0 2px rgba(196,181,253,0.85), 0 0 22px 4px rgba(139,92,246,0.55), 0 20px 45px -10px rgba(139,92,246,0.5);
+    }
+    50% {
+      box-shadow: 0 0 0 2px rgba(217,70,239,0.95), 0 0 42px 12px rgba(168,85,247,0.8), 0 24px 55px -8px rgba(139,92,246,0.65);
+    }
+  }
+  /* ============ GLOW EFFECTS ============ */
+  .glow-btn {
+    position: relative;
+    animation: btn-glow-pulse 2.6s ease-in-out infinite;
+  }
+  @keyframes btn-glow-pulse {
+    0%, 100% { box-shadow: 0 0 16px 2px rgba(139,92,246,0.45), 0 8px 22px -6px rgba(139,92,246,0.4); }
+    50% { box-shadow: 0 0 32px 8px rgba(168,85,247,0.7), 0 10px 30px -6px rgba(139,92,246,0.55); }
+  }
+
+  .avatar-glow {
+    animation: avatar-glow-pulse 3s ease-in-out infinite;
+  }
+  @keyframes avatar-glow-pulse {
+    0%, 100% { box-shadow: 0 0 0 2px rgba(139,92,246,0.65), 0 0 16px 4px rgba(139,92,246,0.35); }
+    50% { box-shadow: 0 0 0 2px rgba(217,70,239,0.85), 0 0 26px 8px rgba(168,85,247,0.55); }
+  }
+
+  .icon-glow {
+    filter: drop-shadow(0 0 6px rgba(168,85,247,0.75));
+  }
+
+  .glow-text {
+    text-shadow: 0 0 14px rgba(167,139,250,0.55);
+  }
+
+  .badge-glow {
+    box-shadow: 0 0 14px 2px rgba(139,92,246,0.5);
+  }
+  /* ============ CUSTOM CURSOR ============ */
+  @media (hover: hover) and (pointer: fine) {
+    main, main a, main button, main input, main textarea, main * {
+      cursor: none;
+    }
+  }
+  #cursor-glow {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 56px;
+    height: 56px;
+    border-radius: 50%;
+    pointer-events: none;
+    z-index: 9998;
+    transform: translate(-50%, -50%) scale(1);
+    background: radial-gradient(circle, rgba(168,85,247,0.55), rgba(217,70,239,0.28) 45%, transparent 72%);
+    filter: blur(4px);
+    opacity: 0;
+    transition: opacity 0.25s ease, transform 0.25s ease;
+  }
+  #cursor-glow.cursor-active {
+    transform: translate(-50%, -50%) scale(1.6);
+    opacity: 1;
+  }
+  #cursor-dot {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 8px;
+    height: 8px;
+    border-radius: 50%;
+    background: #fff;
+    pointer-events: none;
+    z-index: 9999;
+    transform: translate(-50%, -50%) scale(1);
+    box-shadow: 0 0 10px 3px rgba(255,255,255,0.85);
+    opacity: 0;
+    transition: opacity 0.2s ease, transform 0.2s ease;
+  }
+  #cursor-dot.cursor-active {
+    transform: translate(-50%, -50%) scale(2.1);
+    background: #d8b4fe;
   }
 </style>
 </head>
 <body class="min-h-screen w-full bg-zinc-950 text-zinc-100 flex justify-center font-body">
 
-<div id="space-bg" aria-hidden="true">
-  <div id="dark-overlay"></div>
+<div id="cursor-glow"></div>
+<div id="cursor-dot"></div>
 
-  <div class="parallax pos-nebula-1" data-speed="0.05">
-    <div class="nebula nebula-1"></div>
-  </div>
-  <div class="parallax pos-nebula-2" data-speed="0.08">
-    <div class="nebula nebula-2"></div>
-  </div>
-  <div class="parallax pos-stars" data-speed="0.03">
-    <div id="stars"></div>
-  </div>
-  <div class="parallax pos-mars" data-speed="0.22">
-    <div class="planet planet-mars"></div>
-  </div>
-  <div class="parallax pos-blue" data-speed="0.3">
-    <div class="planet planet-blue"></div>
-  </div>
-  <div class="parallax pos-moon" data-speed="0.14">
-    <div class="moon">
-      <span class="crater c1"></span>
-      <span class="crater c2"></span>
-      <span class="crater c3"></span>
-    </div>
-  </div>
-  <div class="parallax pos-saturn" data-speed="0.18">
-    <div class="saturn-wrap">
-      <div class="saturn-ring"></div>
-      <div class="saturn-body"></div>
-    </div>
-  </div>
-  <div class="parallax pos-purple" data-speed="0.16">
-    <div class="planet planet-purple"></div>
-  </div>
-  <div class="parallax pos-asteroid" data-speed="0.35">
-    <div class="asteroid"></div>
-  </div>
-  <div class="parallax pos-comet" data-speed="0.1">
-    <div class="comet-wrap"><div class="comet"></div></div>
-  </div>
-
-  <div id="shooting-stars"></div>
-</div>
-
-<main class="w-full max-w-[480px] mx-auto relative z-10 shadow-2xl bg-transparent overflow-hidden">
+<main class="w-full max-w-[480px] mx-auto relative z-10 shadow-2xl bg-zinc-950 overflow-hidden">
 
   <section id="hero-section" class="relative w-full min-h-[92vh] flex flex-col justify-end overflow-hidden">
     <div class="absolute inset-0 bg-gradient-to-b from-zinc-950/40 via-zinc-950/70 to-zinc-950"></div>
     <div class="absolute inset-0 bg-gradient-to-t from-fuchsia-950/20 via-transparent to-transparent"></div>
 
+    <div id="hero-space" aria-hidden="true">
+      <div class="parallax hero-pos-nebula-1" data-speed="0.15"><div class="nebula nebula-1"></div></div>
+      <div class="parallax hero-pos-nebula-2" data-speed="0.2"><div class="nebula nebula-2"></div></div>
+      <div class="parallax" style="inset:0;" data-speed="0.08"><div id="stars"></div></div>
+
+      <div class="parallax hero-pos-moon" data-speed="0.35">
+        <div class="moon">
+          <span class="crater c1"></span>
+          <span class="crater c2"></span>
+          <span class="crater c3"></span>
+        </div>
+      </div>
+
+      <div class="parallax hero-pos-saturn" data-speed="0.5">
+        <div class="saturn-wrap">
+          <div class="saturn-ring"></div>
+          <div class="saturn-body"></div>
+        </div>
+      </div>
+
+      <div class="parallax hero-pos-mars" data-speed="0.6"><div class="planet planet-mars"></div></div>
+      <div class="parallax hero-pos-blue" data-speed="0.75"><div class="planet planet-blue"></div></div>
+      <div class="parallax hero-pos-purple" data-speed="0.45"><div class="planet planet-purple"></div></div>
+
+      <div class="parallax hero-pos-asteroid-1" data-speed="0.9"><div class="asteroid"></div></div>
+      <div class="parallax hero-pos-asteroid-2" data-speed="1.05"><div class="asteroid"></div></div>
+      <div class="parallax hero-pos-asteroid-3" data-speed="0.8"><div class="asteroid"></div></div>
+
+      <div class="parallax" style="inset:0;" data-speed="0.25">
+        <div class="comet-wrap"><div class="comet"></div></div>
+      </div>
+
+      <div id="shooting-stars"></div>
+    </div>
+
     <div class="relative z-10 px-6 pt-10 pb-8 flex flex-col gap-5">
       <div class="flex items-center gap-3">
-        <img src="https://i.pinimg.com/736x/33/60/af/3360af143db482cc1b1d21f8c635626d.jpg" class="w-14 h-14 rounded-full object-cover ring-2 ring-violet-500/80 ring-offset-2 ring-offset-zinc-950" />
+        <img src="https://i.pinimg.com/736x/33/60/af/3360af143db482cc1b1d21f8c635626d.jpg" class="avatar-glow w-14 h-14 rounded-full object-cover ring-2 ring-violet-500/80 ring-offset-2 ring-offset-zinc-950" />
         <div class="flex flex-col">
-          <span class="font-display text-sm tracking-wide text-white">Kirei.Art</span>
+          <span class="glow-text font-display text-sm tracking-wide text-white">Apresia's Commission</span>
           <div class="flex items-center gap-3 mt-1">
             <a href="#" class="text-zinc-400 hover:text-violet-400"><i data-lucide="instagram" class="w-[18px] h-[18px]"></i></a>
             <a href="#" class="text-zinc-400 hover:text-violet-400"><i data-lucide="twitter" class="w-[18px] h-[18px]"></i></a>
@@ -325,31 +370,33 @@
 
       <div class="flex items-center gap-2 text-violet-400 text-xs font-semibold uppercase tracking-widest">
         <i data-lucide="sparkles" class="w-[14px] h-[14px]"></i>
-        <span>Open Commission</span>
+        <span>Slot Kebuka, Gaskeun!</span>
       </div>
 
-      <h1 class="font-display text-4xl leading-[1.15] text-white">Wajahmu, <span class="text-violet-400">Jadi Karya.</span></h1>
+      <h1 class="font-display text-4xl leading-[1.15] text-white">Muka Lo, <span class="text-violet-400">Auto Jadi Karya.</span></h1>
 
       <p class="text-zinc-300 text-sm leading-relaxed max-w-[38ch]">
-        Commission digital art custom — headshot sampai full body, digambar tangan dengan gaya semi-realistic & anime yang khas.
+        Commission digital art custom, dari headshot sampe full body — digambar sat-set, hasilnya no debat estetik parah 🔥
       </p>
 
-      <button onclick="scrollToForm()" class="mt-2 inline-flex items-center justify-center gap-2 bg-violet-500 hover:bg-violet-400 active:scale-[0.98] transition-all text-zinc-950 font-bold text-sm px-6 py-4 rounded-full w-fit shadow-lg shadow-violet-500/20">
-        Pesan Karyamu Sekarang
+      <button onclick="scrollToForm()" class="glow-btn mt-2 inline-flex items-center justify-center gap-2 bg-violet-500 hover:bg-violet-400 active:scale-[0.98] transition-all text-zinc-950 font-bold text-sm px-6 py-4 rounded-full w-fit shadow-lg shadow-violet-500/20">
+        Pesan Sekarang
         <i data-lucide="arrow-down" class="w-[16px] h-[16px]"></i>
       </button>
     </div>
   </section>
 
+  <div class="relative bg-zinc-950">
+
   <section class="px-6 pt-12 pb-4">
     <div class="flex items-center gap-2 mb-1">
-      <i data-lucide="palette" class="w-[16px] h-[16px] text-violet-400"></i>
+      <i data-lucide="palette" class="icon-glow w-[16px] h-[16px] text-violet-400"></i>
       <span class="text-xs font-semibold uppercase tracking-widest text-violet-400">Portofolio</span>
     </div>
-    <h2 class="font-display text-2xl text-white mb-5">Beberapa Karya Terbaru</h2>
+    <h2 class="font-display text-2xl text-white mb-5">Karya-Karya Kece Kemarin</h2>
   </section>
 
-  <div id="gallery" class="pl-6 pb-2 flex gap-4 overflow-x-auto snap-x snap-mandatory no-scrollbar"></div>
+  <div id="gallery" class="pl-8 pr-8 pt-2 pb-6 flex gap-6 overflow-x-auto snap-x snap-mandatory no-scrollbar"></div>
 
   <div id="lightbox" class="hidden fixed inset-0 z-50 bg-zinc-950/95 backdrop-blur-sm items-center justify-center px-4">
     <button onclick="closeLightbox()" class="absolute top-6 right-6 text-zinc-300 hover:text-white bg-zinc-800/70 rounded-full p-2"><i data-lucide="x" class="w-[22px] h-[22px]"></i></button>
@@ -360,24 +407,21 @@
 
   <section class="px-6 pt-12 pb-4">
     <div class="flex items-center gap-2 mb-1">
-      <i data-lucide="sparkles" class="w-[16px] h-[16px] text-violet-400"></i>
+      <i data-lucide="sparkles" class="icon-glow w-[16px] h-[16px] text-violet-400"></i>
       <span class="text-xs font-semibold uppercase tracking-widest text-violet-400">Paket Layanan</span>
     </div>
-    <h2 class="font-display text-2xl text-white mb-5">Pilih Paket Sesuai Kebutuhan</h2>
+    <h2 class="font-display text-2xl text-white mb-5">Cus Pilih Paket Lo</h2>
   </section>
 
-  <div id="packages" class="pl-6 pb-4 flex gap-4 overflow-x-auto snap-x snap-mandatory no-scrollbar"></div>
+  <div id="packages" class="pl-8 pr-8 pt-2 pb-8 flex gap-6 overflow-x-auto snap-x snap-mandatory no-scrollbar"></div>
 
-  <div id="wave-field-wrap" class="relative">
-    <div id="wave-field"></div>
-
-    <section id="form-section" class="relative z-10 px-6 pt-14 pb-10">
+  <section id="form-section" class="px-6 pt-14 pb-10">
     <div class="flex items-center gap-2 mb-1">
-      <i data-lucide="send" class="w-[16px] h-[16px] text-violet-400"></i>
+      <i data-lucide="send" class="icon-glow w-[16px] h-[16px] text-violet-400"></i>
       <span class="text-xs font-semibold uppercase tracking-widest text-violet-400">Form Pemesanan</span>
     </div>
-    <h2 class="font-display text-2xl text-white mb-2">Ceritakan Karaktermu</h2>
-    <p class="text-zinc-400 text-sm mb-6 leading-relaxed">Isi form singkat ini, nanti pesananmu otomatis tersusun rapi dan terkirim ke WhatsApp kami. Referensi gambar bisa dikirim langsung lewat chat.</p>
+    <h2 class="font-display text-2xl text-white mb-2">Spill Karakter Lo</h2>
+    <p class="text-zinc-400 text-sm mb-6 leading-relaxed">Isi form ini sat-set, ntar pesenan lo otomatis rapi kekirim ke WhatsApp mimin. Referensi gambar tinggal spill lewat chat aja ya.</p>
 
     <form onsubmit="sendOrder(event)" class="flex flex-col gap-4">
       <div class="flex flex-col gap-2">
@@ -392,15 +436,15 @@
         <label class="text-xs font-semibold text-zinc-400">Deskripsi Karakter / Pose</label>
         <textarea id="brief" required rows="4" placeholder="Contoh: karakter cewek rambut pirang, outfit kasual, pose duduk santai..." class="bg-zinc-900 border border-zinc-800 rounded-xl px-4 py-3 text-sm text-white placeholder-zinc-600 focus:outline-none focus:ring-2 focus:ring-violet-500 resize-none"></textarea>
       </div>
-      <button type="submit" class="mt-2 inline-flex items-center justify-center gap-2 bg-violet-500 hover:bg-violet-400 active:scale-[0.98] transition-all text-zinc-950 font-bold text-sm px-6 py-4 rounded-full shadow-lg shadow-violet-500/20">
+      <button type="submit" class="glow-btn mt-2 inline-flex items-center justify-center gap-2 bg-violet-500 hover:bg-violet-400 active:scale-[0.98] transition-all text-zinc-950 font-bold text-sm px-6 py-4 rounded-full shadow-lg shadow-violet-500/20">
         <i data-lucide="message-circle" class="w-[18px] h-[18px]"></i>
-        Kirim via WhatsApp
+        Gas Kirim ke WhatsApp
       </button>
     </form>
   </section>
 
-  <footer class="relative z-10 px-6 py-8 border-t border-zinc-900 flex flex-col items-center gap-2 text-center">
-    <span class="text-xs text-zinc-500">© 2026 Kirei.Art. Semua karya adalah hasil orisinal.</span>
+  <footer class="px-6 py-8 border-t border-zinc-900 flex flex-col items-center gap-2 text-center">
+    <span class="text-xs text-zinc-500">© 2026 Apresia's Commission. 100% orisinal, no tipu-tipu.</span>
     <a href="https://solusilokal.id" target="_blank" class="text-xs text-zinc-600 hover:text-violet-400">Powered by SolusiLokal.id Tools</a>
     <div class="h-20"></div>
   </footer>
@@ -409,9 +453,9 @@
 
   <div id="sticky-cta" class="fixed bottom-0 left-0 right-0 z-40 flex justify-center px-6 pb-6 pointer-events-none transition-all duration-500 opacity-0 translate-y-4">
     <div class="w-full max-w-[480px] pointer-events-auto">
-      <button onclick="scrollToForm()" class="w-full flex items-center justify-center gap-2 bg-violet-500 hover:bg-violet-400 active:scale-[0.98] transition-all text-zinc-950 font-bold text-sm px-6 py-4 rounded-full shadow-2xl shadow-violet-500/30">
+      <button onclick="scrollToForm()" class="glow-btn w-full flex items-center justify-center gap-2 bg-violet-500 hover:bg-violet-400 active:scale-[0.98] transition-all text-zinc-950 font-bold text-sm px-6 py-4 rounded-full shadow-2xl shadow-violet-500/30">
         <i data-lucide="message-circle" class="w-[18px] h-[18px]"></i>
-        Pesan Commission Sekarang
+        Order Commission!
       </button>
     </div>
   </div>
@@ -442,7 +486,7 @@ let lightboxIndex = null;
 function renderGallery() {
   const el = document.getElementById("gallery");
   el.innerHTML = pageData.gallery.map((img, i) =>
-    `<button onclick="openLightbox(${i})" class="snap-start shrink-0 w-[70%] aspect-[3/4] rounded-2xl overflow-hidden border border-zinc-800">
+    `<button onclick="openLightbox(${i})" class="carousel-card snap-start shrink-0 w-[70%] aspect-[3/4] rounded-2xl overflow-hidden border border-zinc-800">
       <img src="${img.url}" alt="${img.alt}" class="w-full h-full object-cover" />
     </button>`
   ).join("") + `<div class="shrink-0 w-2"></div>`;
@@ -451,17 +495,17 @@ function renderGallery() {
 function renderPackages() {
   const el = document.getElementById("packages");
   el.innerHTML = pageData.packages.map(pkg => `
-    <div class="snap-start shrink-0 w-[78%] rounded-2xl p-5 flex flex-col gap-4 border ${pkg.popular ? "border-violet-500 bg-gradient-to-b from-violet-500/10 to-zinc-900" : "border-zinc-800 bg-zinc-900/60"}">
-      ${pkg.popular ? `<span class="w-fit text-[10px] font-bold uppercase tracking-widest bg-violet-500 text-zinc-950 px-2 py-1 rounded-full">Paling Laris</span>` : ""}
+    <div class="carousel-card snap-start shrink-0 w-[78%] rounded-2xl p-5 flex flex-col gap-4 border ${pkg.popular ? "border-violet-500 bg-gradient-to-b from-violet-500/10 to-zinc-900" : "border-zinc-800 bg-zinc-900/60"}">
+      ${pkg.popular ? `<span class="badge-glow w-fit text-[10px] font-bold uppercase tracking-widest bg-violet-500 text-zinc-950 px-2 py-1 rounded-full">Paling Diborong</span>` : ""}
       <div>
         <h3 class="font-display text-lg text-white">${pkg.name}</h3>
         <p class="text-zinc-400 text-xs mt-1 leading-relaxed">${pkg.desc}</p>
       </div>
-      <div class="font-display text-2xl text-violet-400">${pkg.price}</div>
+      <div class="glow-text font-display text-2xl text-violet-400">${pkg.price}</div>
       <ul class="flex flex-col gap-2">
         ${pkg.features.map(f => `<li class="flex items-start gap-2 text-xs text-zinc-300"><i data-lucide="check" class="w-[14px] h-[14px] text-violet-400 mt-0.5 shrink-0"></i><span>${f}</span></li>`).join("")}
       </ul>
-      <button onclick="choosePackage('${pkg.id}')" class="mt-auto text-sm font-bold py-3 rounded-full transition-colors ${pkg.popular ? "bg-violet-500 hover:bg-violet-400 text-zinc-950" : "bg-zinc-800 hover:bg-zinc-700 text-white"}">Pesan Paket Ini</button>
+      <button onclick="choosePackage('${pkg.id}')" class="${pkg.popular ? "glow-btn " : ""}mt-auto text-sm font-bold py-3 rounded-full transition-colors ${pkg.popular ? "bg-violet-500 hover:bg-violet-400 text-zinc-950" : "bg-zinc-800 hover:bg-zinc-700 text-white"}">Gas Paket Ini</button>
     </div>
   `).join("") + `<div class="shrink-0 w-2"></div>`;
 }
@@ -514,26 +558,20 @@ function sendOrder(e) {
   const pkg = pageData.packages.find(p => p.id === selectedPackage);
   const name = document.getElementById("name").value || "-";
   const brief = document.getElementById("brief").value || "-";
-  const message = `Halo Kirei.Art! Aku mau order commission.\n\nPaket: ${pkg.name} (${pkg.price})\nNama: ${name}\nBrief karakter/pose: ${brief}\n\nReferensi gambar akan aku kirim lewat chat ya.`;
+  const message = `Halo Apresia's Commission! Aku mau order commission.\n\nPaket: ${pkg.name} (${pkg.price})\nNama: ${name}\nBrief karakter/pose: ${brief}\n\nReferensi gambar akan aku kirim lewat chat ya.`;
   window.open(`https://wa.me/${pageData.waNumber}?text=${encodeURIComponent(message)}`, "_blank");
 }
 
 const parallaxEls = document.querySelectorAll(".parallax");
-const darkOverlay = document.getElementById("dark-overlay");
-const heroSection = document.getElementById("hero-section");
 let scrollTicking = false;
 
 function handleScroll() {
   const scrollY = window.scrollY;
 
   parallaxEls.forEach((el) => {
-    const speed = parseFloat(el.dataset.speed) || 0.1;
-    el.style.transform = `translateY(${-scrollY * speed}px)`;
+    const speed = parseFloat(el.dataset.speed) || 0.3;
+    el.style.transform = `translateY(${scrollY * speed}px)`;
   });
-
-  const heroHeight = heroSection ? heroSection.offsetHeight : window.innerHeight;
-  const progress = Math.min(Math.max(scrollY / heroHeight, 0), 1);
-  darkOverlay.style.opacity = progress;
 
   const cta = document.getElementById("sticky-cta");
   if (scrollY > 520) {
@@ -575,11 +613,11 @@ scheduleShootingStar();
 
 function renderStars() {
   const el = document.getElementById("stars");
-  const total = 130;
+  const total = 90;
   let html = "";
   for (let i = 0; i < total; i++) {
     const size = (Math.random() * 2.2 + 0.8).toFixed(1);
-    const top = (Math.random() * 100).toFixed(1);
+    const top = (Math.random() * 45).toFixed(1);
     const left = (Math.random() * 100).toFixed(1);
     const duration = (Math.random() * 3 + 2).toFixed(1);
     const delay = (Math.random() * 5).toFixed(1);
@@ -589,67 +627,117 @@ function renderStars() {
   el.innerHTML = html;
 }
 
-function renderWaveField() {
-  const el = document.getElementById("wave-field");
-  const width = 480;
-  const height = 620;
-  const lineCount = 30;
-  let paths = "";
+function updateActiveCarousel(containerId) {
+  const container = document.getElementById(containerId);
+  if (!container) return;
+  const containerRect = container.getBoundingClientRect();
+  const containerCenter = containerRect.left + containerRect.width / 2;
 
-  for (let i = 0; i < lineCount; i++) {
-    const t = i / (lineCount - 1);
-    const baseY = 30 + t * 300 + Math.pow(t, 1.7) * 40;
-    const amp = 95 - t * 45;
-    const jitter = Math.sin(i * 12.9) * 6;
-    const startY = baseY + 20 + jitter;
-    const peakY = baseY - amp;
-    const midY = peakY + amp * 0.28;
-    const endY = baseY + amp * 1.35;
+  const cards = container.querySelectorAll(".carousel-card");
+  let closest = null;
+  let minDist = Infinity;
+  cards.forEach((card) => {
+    const rect = card.getBoundingClientRect();
+    const cardCenter = rect.left + rect.width / 2;
+    const dist = Math.abs(cardCenter - containerCenter);
+    if (dist < minDist) {
+      minDist = dist;
+      closest = card;
+    }
+  });
 
-    const d = `M -20 ${startY.toFixed(1)} ` +
-      `C ${(width * 0.2).toFixed(1)} ${(startY - amp * 0.25).toFixed(1)}, ` +
-      `${(width * 0.35).toFixed(1)} ${peakY.toFixed(1)}, ` +
-      `${(width * 0.5).toFixed(1)} ${midY.toFixed(1)} ` +
-      `C ${(width * 0.65).toFixed(1)} ${(midY + amp * 0.35).toFixed(1)}, ` +
-      `${(width * 0.8).toFixed(1)} ${(endY - amp * 0.3).toFixed(1)}, ` +
-      `${(width + 20).toFixed(1)} ${endY.toFixed(1)}`;
-
-    const opacity = (0.12 + t * 0.5).toFixed(2);
-    paths += `<path d="${d}" fill="none" stroke="url(#waveGrad)" stroke-width="1.1" opacity="${opacity}" />`;
-  }
-
-  el.innerHTML = `
-    <svg viewBox="0 0 ${width} ${height}" preserveAspectRatio="none" xmlns="http://www.w3.org/2000/svg">
-      <defs>
-        <linearGradient id="waveGrad" x1="0%" y1="0%" x2="100%" y2="100%">
-          <stop offset="0%" stop-color="#a855f7" />
-          <stop offset="50%" stop-color="#8b5cf6" />
-          <stop offset="100%" stop-color="#d946ef" />
-        </linearGradient>
-      </defs>
-      ${paths}
-    </svg>
-  `;
+  cards.forEach((card) => {
+    card.classList.toggle("carousel-active", card === closest);
+  });
 }
 
-const waveObserver = new IntersectionObserver(
-  (entries) => {
-    entries.forEach((entry) => {
-      if (entry.isIntersecting) {
-        document.getElementById("wave-field").classList.add("in-view");
-      }
-    });
-  },
-  { threshold: 0.15 }
-);
-waveObserver.observe(document.getElementById("wave-field-wrap"));
+function bindCarouselHighlight(containerId) {
+  const container = document.getElementById(containerId);
+  if (!container) return;
+  let ticking = false;
+  container.addEventListener("scroll", () => {
+    if (!ticking) {
+      requestAnimationFrame(() => {
+        updateActiveCarousel(containerId);
+        ticking = false;
+      });
+      ticking = true;
+    }
+  }, { passive: true });
+}
 
-renderWaveField();
+bindCarouselHighlight("packages");
+bindCarouselHighlight("gallery");
+
+window.addEventListener("resize", () => {
+  requestAnimationFrame(() => {
+    updateActiveCarousel("packages");
+    updateActiveCarousel("gallery");
+  });
+});
+
 renderStars();
 renderGallery();
 renderPackages();
 renderPackageSelect();
 lucide.createIcons();
+requestAnimationFrame(() => {
+  updateActiveCarousel("packages");
+  updateActiveCarousel("gallery");
+});
+
+const isFinePointer = window.matchMedia("(hover: hover) and (pointer: fine)").matches;
+if (isFinePointer) {
+  const cursorDot = document.getElementById("cursor-dot");
+  const cursorGlow = document.getElementById("cursor-glow");
+  const mainEl = document.querySelector("main");
+
+  let mouseX = 0, mouseY = 0;
+  let glowX = 0, glowY = 0;
+
+  mainEl.addEventListener("mousemove", (e) => {
+    mouseX = e.clientX;
+    mouseY = e.clientY;
+    cursorDot.style.left = mouseX + "px";
+    cursorDot.style.top = mouseY + "px";
+  });
+
+  mainEl.addEventListener("mouseenter", (e) => {
+    mouseX = e.clientX;
+    mouseY = e.clientY;
+    glowX = mouseX;
+    glowY = mouseY;
+    cursorDot.style.opacity = "1";
+    cursorGlow.style.opacity = "1";
+  });
+
+  mainEl.addEventListener("mouseleave", () => {
+    cursorDot.style.opacity = "0";
+    cursorGlow.style.opacity = "0";
+  });
+
+  mainEl.addEventListener("mouseover", (e) => {
+    if (e.target.closest("a, button, input, textarea, .carousel-card")) {
+      cursorDot.classList.add("cursor-active");
+      cursorGlow.classList.add("cursor-active");
+    }
+  });
+  mainEl.addEventListener("mouseout", (e) => {
+    if (e.target.closest("a, button, input, textarea, .carousel-card")) {
+      cursorDot.classList.remove("cursor-active");
+      cursorGlow.classList.remove("cursor-active");
+    }
+  });
+
+  function animateCursorGlow() {
+    glowX += (mouseX - glowX) * 0.15;
+    glowY += (mouseY - glowY) * 0.15;
+    cursorGlow.style.left = glowX + "px";
+    cursorGlow.style.top = glowY + "px";
+    requestAnimationFrame(animateCursorGlow);
+  }
+  animateCursorGlow();
+}
 </script>
 </body>
 </html>
